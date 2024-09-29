@@ -1,0 +1,1 @@
+DES key shoul be hexadecimal - Ex: 0123456789ABCDEF
