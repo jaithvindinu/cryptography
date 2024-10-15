@@ -23,14 +23,11 @@ void sha1_compress(const uint8_t msg[64], uint32_t h[5]);
 void sha1(const uint8_t *initial_msg, size_t initial_len, uint32_t h[5]);
 
 // Message scheduling function
-void msg_schedule(const uint8_t msg[64], uint32_t w[80])
-{
-    for (int i = 0; i < 16; i++)
-    {
+void msg_schedule(const uint8_t msg[64], uint32_t w[80]) {
+    for (int i = 0; i < 16; i++) {
         w[i] = (msg[i * 4] << 24) | (msg[i * 4 + 1] << 16) | (msg[i * 4 + 2] << 8) | msg[i * 4 + 3];
     }
-    for (int i = 16; i < 80; i++)
-    {
+    for (int i = 16; i < 80; i++) {
         w[i] = LEFT_ROTATE((w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16]), 1);
     }
 }
@@ -42,29 +39,24 @@ uint32_t mod_add(uint32_t in1, uint32_t in2)
 }
 
 // SHA-1 stage functions
-uint32_t f_stage1(uint32_t b, uint32_t c, uint32_t d)
-{
+uint32_t f_stage1(uint32_t b, uint32_t c, uint32_t d) {
     return (b & c) | (~b & d);
 }
 
-uint32_t f_stage2(uint32_t b, uint32_t c, uint32_t d)
-{
+uint32_t f_stage2(uint32_t b, uint32_t c, uint32_t d) {
     return b ^ c ^ d;
 }
 
-uint32_t f_stage3(uint32_t b, uint32_t c, uint32_t d)
-{
+uint32_t f_stage3(uint32_t b, uint32_t c, uint32_t d) {
     return (b & c) | (b & d) | (c & d);
 }
 
-uint32_t f_stage4(uint32_t b, uint32_t c, uint32_t d)
-{
+uint32_t f_stage4(uint32_t b, uint32_t c, uint32_t d) {
     return b ^ c ^ d;
 }
 
 // SHA-1 compression function
-void sha1_compress(const uint8_t msg[64], uint32_t h[5])
-{
+void sha1_compress(const uint8_t msg[64], uint32_t h[5]) {
     uint32_t w[80];
     uint32_t a, b, c, d, e, temp;
 
@@ -79,22 +71,17 @@ void sha1_compress(const uint8_t msg[64], uint32_t h[5])
     msg_schedule(msg, w);
 
     // Compression function main loop
-    for (int i = 0; i < 80; i++)
-    {
-        if (i < 20)
-        {
+    for (int i = 0; i < 80; i++) {
+        if (i < 20) {
             temp = LEFT_ROTATE(a, 5) + f_stage1(b, c, d) + e + w[i] + 0x5A827999;
         }
-        else if (i < 40)
-        {
+        else if (i < 40) {
             temp = LEFT_ROTATE(a, 5) + f_stage2(b, c, d) + e + w[i] + 0x6ED9EBA1;
         }
-        else if (i < 60)
-        {
+        else if (i < 60) {
             temp = LEFT_ROTATE(a, 5) + f_stage3(b, c, d) + e + w[i] + 0x8F1BBCDC;
         }
-        else
-        {
+        else {
             temp = LEFT_ROTATE(a, 5) + f_stage4(b, c, d) + e + w[i] + 0xCA62C1D6;
         }
 
@@ -114,8 +101,7 @@ void sha1_compress(const uint8_t msg[64], uint32_t h[5])
 }
 
 // SHA-1 function
-void sha1(const uint8_t *initial_msg, size_t initial_len, uint32_t h[5])
-{
+void sha1(const uint8_t *initial_msg, size_t initial_len, uint32_t h[5]) {
     // IV
     h[0] = H0_INIT;
     h[1] = H1_INIT;
@@ -148,8 +134,7 @@ void sha1(const uint8_t *initial_msg, size_t initial_len, uint32_t h[5])
     }
 }
 
-int main()
-{
+int main() {
     const char *input = "Kulanga Modai";
 
     uint32_t h[5];

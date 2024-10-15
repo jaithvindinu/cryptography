@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
-#include "des_tables.c"
+#include "tables.cpp"
 
 /* Function to get a bit from data */
 int get_bit(uint8_t *data, int pos) {
@@ -285,28 +285,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-
-/* Main function to test the DES implementation 
-int main() {
-    uint8_t key[8] = {0x13, 0x34, 0x57, 0x79, 0x9B, 0xBC, 0xDF, 0xF1}; // Example 64-bit key
-    uint8_t plaintext[8] = {0x01,0x23,0x45,0x67,0x89,0xAB,0xCD,0xEF}; // Example 64-bit plaintext
-    uint8_t ciphertext[8];
-    uint8_t decryptedtext[8];
-
-    // Encrypt
-    DES(plaintext, ciphertext, key, 0);
-    printf("Ciphertext: ");
-    for(int i = 0; i < 8; i++)
-        printf("%02X ", ciphertext[i]);
-    printf("\n");
-
-    // Decrypt
-    DES(ciphertext, decryptedtext, key, 1);
-    printf("Decrypted text: ");
-    for(int i = 0; i < 8; i++)
-        printf("%02X ", decryptedtext[i]);
-    printf("\n");
-
-    return 0;
-}
-*/
