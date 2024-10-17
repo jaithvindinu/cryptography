@@ -10,6 +10,9 @@
 
 #define MIN_RSA_KEY_SIZE 512 // Minimum RSA key size
 
+// BIO: Basic Input/Output abstraction in OpenSSL
+// Used for various I/O operations, including Base64 encoding/decoding
+
 // Function to encode binary data to Base64
 char* base64_encode(const unsigned char* buffer, size_t length) {
     BIO *bio, *b64;
@@ -61,6 +64,7 @@ unsigned char* base64_decode(const char* base64_str, size_t *out_len) {
 // Function to generate RSA key pair
 void generate_key(int key_size) {
     EVP_PKEY *pkey = NULL;
+    // CTX (Context): Holds settings and state for crypto operations
     EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new_id(EVP_PKEY_RSA, NULL);
 
     // Initialize key generation
@@ -97,6 +101,7 @@ void encrypt_text(const char *plaintext) {
     EVP_PKEY_CTX *ctx = EVP_PKEY_CTX_new(pkey, NULL);
     EVP_PKEY_encrypt_init(ctx);
     // Set padding mode
+    // OAEP is a secure padding mode for RSA
     EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_OAEP_PADDING);
 
     // Determine the output length
