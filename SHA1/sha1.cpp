@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
+#include <cstring>
+#include <string> 
+#include <iostream>
 
 // Constants for SHA-1
 #define H0_INIT 0x67452301
@@ -148,14 +151,18 @@ void sha1(const uint8_t *initial_msg, size_t initial_len, uint32_t h[5])
     }
 }
 
-int main()
-{
-    const char *input = "Welcome to SLIIT";
+int main() {
+    std::string input;
+    std::cout << "Enter the string to hash: ";
+    std::getline(std::cin, input);  // To capture entire input line
 
-    uint32_t h[5];
-    sha1((const uint8_t *)input, strlen(input), h);
+    // Converting string to a C-style string for the sha1 function
+    const char *input_c_str = input.c_str();
 
-    // Print resulting hash
+    uint32_t h[5];  // Array to hold the SHA-1 hash result
+    sha1((const uint8_t *)input_c_str, strlen(input_c_str), h);
+
+    // Print resulting hash in hexadecimal format
     printf("SHA-1 hash: %08x%08x%08x%08x%08x\n", h[0], h[1], h[2], h[3], h[4]);
 
     return 0;
