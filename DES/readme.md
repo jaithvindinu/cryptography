@@ -3,7 +3,12 @@
 g++ -o des des.cpp
 ```
 
-# Run DES program
+# Encrypt DES program
 ```bash
-./des
+./des e <input_file> <output_file> <key>
+```
+
+# Decrypt DES program
+```bash
+./des d <input_file> <output_file> <key>
 ```
